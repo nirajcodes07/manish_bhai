@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Birthday Manish</title>
+  <style>
+    :root {
+      --bg: #080910;
+      --ink: #fff8ec;
+      --muted: #d6c7aa;
+      --gold: #f2c46d;
+      --rose: #d26879;
+      --wine: #5a1c28;
+      --cream: #fff0cd;
+      --chocolate: #4b2319;
+      --shadow: rgba(0, 0, 0, 0.45);
+      --glass: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(214, 104, 121, 0.16), transparent 34%),
+        radial-gradient(circle at 15% 70%, rgba(242, 196, 109, 0.10), transparent 28%),
+        linear-gradient(135deg, #05060b 0%, #111321 48%, #080910 100%);
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      position: relative;
+      min-height: 100%;
+      isolation: isolate;
+    }
+
+    .fireworks {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .film-grain {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        repeating-radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(105deg, transparent 0 7px, rgba(255, 255, 255, 0.04) 7px 8px);
+      mix-blend-mode: soft-light;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      padding: clamp(18px, 4vw, 56px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(18px) scale(0.99);
+      transition: opacity 800ms ease, transform 800ms ease, visibility 800ms ease;
+    }
+
+    .screen.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .intro {
+      text-align: center;
+    }
+
+    .intro-shell {
+      width: min(920px, 94vw);
+      display: grid;
+      justify-items: center;
+      gap: clamp(22px, 4vw, 42px);
+    }
+
+    .birthday-title {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.2rem, 10vw, 8.8rem);
+      line-height: 0.92;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.68),
+        0 0 42px rgba(242, 196, 109, 0.24);
+    }
+
+    .birthday-title span {
+      display: block;
+      margin-top: 0.08em;
+      color: var(--gold);
+      font-style: italic;
+      text-shadow:
+        0 0 18px rgba(242, 196, 109, 0.58),
+        0 10px 30px rgba(0, 0, 0, 0.72);
+    }
+
+    .birthday-subtitle {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.4vw, 1.35rem);
+      line-height: 1.7;
+    }
+
+    .primary-button {
+      position: relative;
+      min-width: min(300px, 84vw);
+      min-height: 58px;
+      border: 1px solid rgba(255, 232, 180, 0.55);
+      border-radius: 999px;
+      color: #1b0f0a;
+      background:
+        linear-gradient(180deg, #fff4c9 0%, #f2c46d 50%, #d79635 100%);
+      box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75),
+        0 0 34px rgba(242, 196, 109, 0.22);
+      cursor: pointer;
+      font-weight: 800;
+      letter-spacing: 0;
+      transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+      overflow: hidden;
+    }
+
+    .primary-button::after {
+      content: "";
+      position: absolute;
+      top: -110%;
+      left: -35%;
+      width: 34%;
+      height: 320%;
+      transform: rotate(28deg);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      animation: sheen 3.4s ease-in-out infinite;
+    }
+
+    .primary-button:hover,
+    .primary-button:focus-visible {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow:
+        0 24px 52px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82),
+        0 0 42px rgba(242, 196, 109, 0.30);
+      outline: none;
+    }
+
+    .primary-button:active {
+      transform: translateY(1px);
+    }
+
+    @keyframes sheen {
+      0% { transform: translateX(-140%) rotate(28deg); }
+      38%, 100% { transform: translateX(520%) rotate(28deg); }
+    }
+
+    .cake-stage {
+      width: min(1080px, 96vw);
+      min-height: min(760px, 94vh);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      align-items: center;
+      justify-items: center;
+      gap: clamp(14px, 2.8vh, 28px);
+      text-align: center;
+      padding-top: min(5vh, 44px);
+    }
+
+    .stage-title {
+      margin: 0;
+      color: var(--gold);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 5.2vw, 4.8rem);
+      line-height: 1.03;
+      text-shadow: 0 8px 28px rgba(0, 0, 0, 0.52);
+    }
+
+    .cake-area {
+      position: relative;
+      width: min(760px, 92vw);
+      height: clamp(360px, 58vh, 520px);
+      display: grid;
+      place-items: end center;
+      perspective: 1000px;
+    }
+
+    .knife {
+      position: absolute;
+      top: clamp(4px, 2vh, 24px);
+      left: 50%;
+      width: clamp(18px, 4.2vw, 30px);
+      height: clamp(178px, 34vh, 250px);
+      transform: translateX(-50%) rotate(0deg);
+      transform-origin: 50% 90%;
+      z-index: 7;
+      filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.42));
+      transition: transform 1150ms cubic-bezier(0.18, 0.92, 0.22, 1), top 1150ms cubic-bezier(0.18, 0.92, 0.22, 1);
+    }
+
+    .knife::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 76%;
+      height: 70%;
+      transform: translateX(-50%);
+      border-radius: 18% 18% 50% 50% / 20% 20% 8% 8%;
+      background:
+        linear-gradient(90deg, #d5d9df 0%, #fff 35%, #9ba3af 54%, #f7f7f7 78%, #7b838d 100%);
+      clip-path: polygon(28% 0, 72% 0, 100% 82%, 50% 100%, 0 82%);
+    }
+
+    .knife::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 100%;
+      height: 34%;
+      transform: translateX(-50%);
+      border-radius: 12px 12px 20px 20px;
+      background:
+        linear-gradient(90deg, #1b1010 0%, #5c2f24 28%, #2b1714 50%, #8b5141 72%, #1b1010 100%);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    }
+
+    .cake-cutting .knife {
+      top: clamp(138px, 25vh, 212px);
+      transform: translateX(-50%) rotate(0deg) scaleY(1.02);
+    }
+
+    .cake-wrap {
+      position: absolute;
+      bottom: clamp(28px, 5vh, 42px);
+      left: 50%;
+      width: min(520px, 82vw);
+      height: clamp(250px, 39vh, 330px);
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+
+    .plate {
+      position: absolute;
+      left: 50%;
+      bottom: -18px;
+      width: 106%;
+      height: 58px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.72), rgba(196, 171, 129, 0.28) 52%, rgba(40, 24, 18, 0.52) 73%, transparent 74%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(145, 126, 101, 0.22));
+      box-shadow: 0 28px 36px rgba(0, 0, 0, 0.46);
+    }
+
+    .cake-shadow {
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      width: 92%;
+      height: 42px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.34);
+      filter: blur(10px);
+    }
+
+    .cake-half {
+      position: absolute;
+      bottom: 26px;
+      width: 50%;
+      height: 278px;
+      transform-style: preserve-3d;
+      transition:
+        transform 1300ms cubic-bezier(0.16, 0.8, 0.22, 1),
+        filter 1300ms ease;
+      will-change: transform;
+    }
+
+    .cake-half.left {
+      left: 0;
+      transform-origin: 100% 60%;
+    }
+
+    .cake-half.right {
+      right: 0;
+      transform-origin: 0 60%;
+    }
+
+    .cake-cut .cake-half.left {
+      transform: translateX(-42px) rotateY(10deg) rotateZ(-1.2deg);
+      filter: drop-shadow(16px 12px 18px rgba(0, 0, 0, 0.28));
+    }
+
+    .cake-cut .cake-half.right {
+      transform: translateX(42px) rotateY(-10deg) rotateZ(1.2deg);
+      filter: drop-shadow(-16px 12px 18px rgba(0, 0, 0, 0.28));
+    }
+
+    .tier {
+      position: absolute;
+      height: var(--tier-h);
+      width: calc(var(--tier-w) / 2);
+      filter: drop-shadow(0 14px 14px rgba(0, 0, 0, 0.20));
+    }
+
+    .tier::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -22px;
+      height: 50px;
+      background:
+        radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.66), transparent 48%),
+        linear-gradient(180deg, #fff9df 0%, #f2c983 60%, #b96146 100%);
+      box-shadow: inset 0 10px 20px rgba(255, 255, 255, 0.28);
+    }
+
+    .tier::after {
+      content: "";
+      position: absolute;
+      inset: 12px 0 0;
+      background:
+        radial-gradient(circle at 22% 16%, rgba(255, 255, 255, 0.18) 0 7px, transparent 8px),
+        linear-gradient(180deg, #fff1c8 0 13%, #67241a 13% 28%, #9b3444 28% 58%, #ffe4b1 58% 68%, #4f2118 68% 100%);
+      box-shadow:
+        inset 0 15px 24px rgba(255, 255, 255, 0.14),
+        inset 0 -18px 26px rgba(0, 0, 0, 0.22);
+    }
+
+    .tier .drip {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 18px;
+      height: 34px;
+      z-index: 2;
+      background:
+        radial-gradient(circle at 18% 0, #4b2319 0 13px, transparent 14px),
+        radial-gradient(circle at 45% 1px, #4b2319 0 16px, transparent 17px),
+        radial-gradient(circle at 76% 0, #4b2319 0 12px, transparent 13px),
+        linear-gradient(180deg, #4b2319, #31140f);
+    }
+
+    .tier .shine {
+      position: absolute;
+      inset: -12px 10% auto;
+      height: 18px;
+      z-index: 3;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255, 255, 255, 0.62), transparent 72%);
+    }
+
+    .tier .berries-small {
+      position: absolute;
+      inset: -17px 10% auto;
+      height: 22px;
+      z-index: 4;
+      background:
+        radial-gradient(circle at 20% 50%, #b51f35 0 6px, #6f1120 7px, transparent 8px),
+        radial-gradient(circle at 50% 25%, #d44d55 0 5px, #8d1a27 6px, transparent 7px),
+        radial-gradient(circle at 80% 54%, #a6172b 0 6px, #64101b 7px, transparent 8px);
+    }
+
+    .tier.top-tier {
+      --tier-w: 250px;
+      --tier-h: 74px;
+      top: 22px;
+    }
+
+    .tier.middle-tier {
+      --tier-w: 380px;
+      --tier-h: 88px;
+      top: 98px;
+    }
+
+    .tier.base-tier {
+      --tier-w: 520px;
+      --tier-h: 108px;
+      top: 190px;
+    }
+
+    .cake-half.left .tier {
+      right: 0;
+    }
+
+    .cake-half.right .tier {
+      left: 0;
+    }
+
+    .cake-half.left .tier::before {
+      border-radius: 999px 0 0 999px / 54px 0 0 54px;
+    }
+
+    .cake-half.right .tier::before {
+      border-radius: 0 999px 999px 0 / 0 54px 54px 0;
+    }
+
+    .cake-half.left .tier::after {
+      border-radius: 16px 0 14px 24px;
+      border-right: 1px solid rgba(255, 238, 194, 0.55);
+    }
+
+    .cake-half.right .tier::after {
+      border-radius: 0 16px 24px 14px;
+      border-left: 1px solid rgba(255, 238, 194, 0.55);
+    }
+
+    .cake-body {
+      position: absolute;
+      inset: 42px 0 0;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 246, 214, 0.98) 0 20%, transparent 20%),
+        linear-gradient(180deg, #8f3140 0 38%, #ffe8ba 38% 45%, #602319 45% 68%, #ffdfae 68% 75%, #7d2733 75% 100%);
+      box-shadow:
+        inset 0 -18px 34px rgba(0, 0, 0, 0.25),
+        inset 0 16px 28px rgba(255, 255, 255, 0.16);
+    }
+
+    .cake-half.left .cake-body {
+      border-radius: 54px 0 18px 72px / 52px 0 22px 60px;
+      border-right: 1px solid rgba(255, 238, 194, 0.55);
+    }
+
+    .cake-half.right .cake-body {
+      border-radius: 0 54px 72px 18px / 0 52px 60px 22px;
+      border-left: 1px solid rgba(255, 238, 194, 0.55);
+    }
+
+    .cake-top {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 94px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 35%, rgba(255, 255, 255, 0.62), transparent 44%),
+        linear-gradient(180deg, #fff7dc 0%, #f3cf8c 64%, #b9684c 100%);
+      box-shadow:
+        inset 0 10px 22px rgba(255, 255, 255, 0.34),
+        inset 0 -16px 28px rgba(96, 35, 25, 0.20);
+    }
+
+    .cake-half.left .cake-top {
+      border-radius: 80% 0 0 46% / 100% 0 0 58%;
+    }
+
+    .cake-half.right .cake-top {
+      border-radius: 0 80% 46% 0 / 0 100% 58% 0;
+    }
+
+    .ganache {
+      position: absolute;
+      left: 0;
+      top: 54px;
+      width: 100%;
+      height: 58px;
+      background:
+        radial-gradient(circle at 15% 2px, #4b2319 0 18px, transparent 19px),
+        radial-gradient(circle at 45% 0, #4b2319 0 22px, transparent 23px),
+        radial-gradient(circle at 78% 1px, #4b2319 0 17px, transparent 18px),
+        linear-gradient(180deg, #4b2319, #32150f);
+      border-bottom: 1px solid rgba(255, 221, 171, 0.20);
+    }
+
+    .berries {
+      position: absolute;
+      inset: 18px 6% auto;
+      height: 34px;
+      background:
+        radial-gradient(circle at 16% 50%, #b51f35 0 9px, #6f1120 10px, transparent 11px),
+        radial-gradient(circle at 38% 24%, #d44d55 0 7px, #8d1a27 8px, transparent 9px),
+        radial-gradient(circle at 61% 56%, #a6172b 0 8px, #64101b 9px, transparent 10px),
+        radial-gradient(circle at 84% 34%, #ce4652 0 7px, #801722 8px, transparent 9px);
+    }
+
+    .cut-face {
+      position: absolute;
+      top: 43px;
+      bottom: 0;
+      width: 32px;
+      opacity: 0;
+      transition: opacity 500ms ease 540ms;
+      background:
+        linear-gradient(180deg, #ffeac6 0 18%, #7e2934 18% 41%, #ffe7bb 41% 50%, #4b2319 50% 74%, #fbdba9 74% 83%, #7c2832 83% 100%);
+      box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .left .cut-face {
+      right: -1px;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .right .cut-face {
+      left: -1px;
+      border-radius: 12px 0 0 12px;
+    }
+
+    .cake-cut .cut-face {
+      opacity: 1;
+    }
+
+    .spark-line {
+      position: absolute;
+      top: 64px;
+      left: 50%;
+      width: 2px;
+      height: 204px;
+      transform: translateX(-50%) scaleY(0);
+      transform-origin: top;
+      z-index: 6;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff9d4 18%, #f2c46d 48%, rgba(255, 255, 255, 0));
+      box-shadow: 0 0 18px rgba(242, 196, 109, 0.72);
+      opacity: 0;
+    }
+
+    .cake-cut .spark-line {
+      animation: cutGlow 1050ms ease forwards;
+    }
+
+    @keyframes cutGlow {
+      0% { opacity: 0; transform: translateX(-50%) scaleY(0); }
+      20% { opacity: 1; transform: translateX(-50%) scaleY(1); }
+      100% { opacity: 0; transform: translateX(-50%) scaleY(1); }
+    }
+
+    .letter {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 12;
+      width: min(720px, 92vw);
+      max-height: min(78vh, 620px);
+      overflow: auto;
+      padding: clamp(26px, 5vw, 48px);
+      transform: translate(-50%, -40%) scale(0.82) rotateX(12deg);
+      opacity: 0;
+      visibility: hidden;
+      border: 1px solid rgba(255, 230, 178, 0.72);
+      border-radius: 8px;
+      color: #2b1d14;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.62), transparent 34%),
+        repeating-linear-gradient(0deg, rgba(88, 60, 34, 0.05) 0 1px, transparent 1px 34px),
+        linear-gradient(180deg, #fff9e8 0%, #f4dfb7 100%);
+      box-shadow:
+        0 36px 70px rgba(0, 0, 0, 0.52),
+        inset 0 0 0 9px rgba(255, 255, 255, 0.22);
+      transition:
+        transform 980ms cubic-bezier(0.16, 0.84, 0.2, 1),
+        opacity 720ms ease,
+        visibility 720ms ease;
+    }
+
+    .letter.open {
+      visibility: visible;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) rotateX(0deg);
+    }
+
+    .letter::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(114, 69, 34, 0.22);
+      border-radius: 5px;
+      pointer-events: none;
+    }
+
+    .letter h2 {
+      margin: 0 0 16px;
+      color: #6e2630;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.9rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .letter p {
+      margin: 0 0 14px;
+      font-size: clamp(1rem, 2.4vw, 1.16rem);
+      line-height: 1.72;
+      color: #3a2a1d;
+    }
+
+    .letter .signature {
+      margin-top: 22px;
+      color: #71313a;
+      font-weight: 800;
+    }
+
+    .letter-close {
+      position: sticky;
+      top: 0;
+      float: right;
+      width: 38px;
+      height: 38px;
+      margin: -18px -18px 8px 14px;
+      border: 1px solid rgba(91, 46, 28, 0.22);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.42);
+      color: #4b2319;
+      cursor: pointer;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .ambient-light {
+      position: fixed;
+      left: 50%;
+      bottom: -32vh;
+      z-index: 0;
+      width: min(900px, 120vw);
+      height: min(760px, 92vh);
+      transform: translateX(-50%);
+      background:
+        radial-gradient(ellipse at center, rgba(242, 196, 109, 0.20), transparent 62%);
+      pointer-events: none;
+    }
+
+    .tiny-note {
+      min-height: 22px;
+      color: rgba(255, 248, 236, 0.74);
+      font-size: clamp(0.86rem, 2vw, 1rem);
+    }
+
+    @media (max-width: 640px) {
+      .cake-stage {
+        min-height: 100vh;
+        gap: 8px;
+        padding-top: 14px;
+      }
+
+      .cake-area {
+        height: 442px;
+      }
+
+      .cake-wrap {
+        width: 84vw;
+        max-width: 430px;
+      }
+
+      .cake-half {
+        height: 250px;
+      }
+
+      .tier.top-tier {
+        --tier-w: min(210px, 49vw);
+        --tier-h: 66px;
+        top: 22px;
+      }
+
+      .tier.middle-tier {
+        --tier-w: min(318px, 74vw);
+        --tier-h: 80px;
+        top: 91px;
+      }
+
+      .tier.base-tier {
+        --tier-w: min(430px, 84vw);
+        --tier-h: 96px;
+        top: 174px;
+      }
+
+      .knife {
+        height: 196px;
+      }
+
+      .cake-cutting .knife {
+        top: 132px;
+      }
+
+      .cake-cut .cake-half.left {
+        transform: translateX(-28px) rotateY(9deg) rotateZ(-1.2deg);
+      }
+
+      .cake-cut .cake-half.right {
+        transform: translateX(28px) rotateY(-9deg) rotateZ(1.2deg);
+      }
+
+      .letter {
+        max-height: 82vh;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <canvas class="fireworks" id="fireworks"></canvas>
+    <div class="ambient-light"></div>
+    <div class="film-grain"></div>
+
+    <section class="screen intro active" id="introScreen" aria-label="Birthday intro">
+      <div class="intro-shell">
+        <h1 class="birthday-title">Happy Birthday <span>Manish</span></h1>
+        <p class="birthday-subtitle">
+          Bhai jaisa dost sirf milta nahi, zindagi ko thoda aur strong, funny aur yaadgaar bana deta hai.
+        </p>
+        <button class="primary-button" id="openCake" type="button">click kar</button>
+      </div>
+    </section>
+
+    <section class="screen cake-screen" id="cakeScreen" aria-label="Cake cutting scene">
+      <div class="cake-stage">
+        <h2 class="stage-title">Manish ka birthday cake</h2>
+        <div class="cake-area" id="cakeArea">
+          <div class="knife" aria-hidden="true"></div>
+          <div class="spark-line" aria-hidden="true"></div>
+          <div class="cake-wrap" id="cakeWrap" aria-label="Large birthday cake">
+            <div class="plate"></div>
+            <div class="cake-shadow"></div>
+            <div class="cake-half left">
+              <div class="tier top-tier">
+                <div class="shine"></div>
+                <div class="berries-small"></div>
+                <div class="drip"></div>
+              </div>
+              <div class="tier middle-tier">
+                <div class="shine"></div>
+                <div class="berries-small"></div>
+                <div class="drip"></div>
+              </div>
+              <div class="tier base-tier">
+                <div class="shine"></div>
+                <div class="berries-small"></div>
+                <div class="drip"></div>
+              </div>
+              <div class="cut-face"></div>
+            </div>
+            <div class="cake-half right">
+              <div class="tier top-tier">
+                <div class="shine"></div>
+                <div class="berries-small"></div>
+                <div class="drip"></div>
+              </div>
+              <div class="tier middle-tier">
+                <div class="shine"></div>
+                <div class="berries-small"></div>
+                <div class="drip"></div>
+              </div>
+              <div class="tier base-tier">
+                <div class="shine"></div>
+                <div class="berries-small"></div>
+                <div class="drip"></div>
+              </div>
+              <div class="cut-face"></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button class="primary-button" id="cutCake" type="button">cake cut kar bhai</button>
+          <div class="tiny-note" id="statusText" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <article class="letter" id="letter" aria-label="Birthday letter">
+        <button class="letter-close" id="closeLetter" type="button" aria-label="Close letter">x</button>
+        <h2>Dear Manish,</h2>
+        <p>
+          Happy Birthday bhai. Aaj ke din bas itna kehna hai ki tu sirf dost nahi,
+          ek aisa insaan hai jiske saath normal din bhi yaadgaar ban jaate hain.
+        </p>
+        <p>
+          Teri loyalty, teri hasi, tera saath aur tera seedha dil bahut rare hai.
+          Zindagi mein chahe kitni bhi speed aa jaye, tu hamesha apni asli value
+          yaad rakhna: tu apne logon ke liye strength hai.
+        </p>
+        <p>
+          Bhagwan kare tera naya saal health, respect, paisa, peace aur badi
+          khushiyon se full ho. Jo sapne tu chup-chaap dil mein rakhta hai,
+          woh ek-ek karke reality banne lagen.
+        </p>
+        <p>
+          Hamesha haste reh, grow karta reh, aur yaad rakh: bhai log sirf party mein
+          nahi, mushkil time mein bhi saath khade rehte hain.
+        </p>
+        <p class="signature">Once again, Happy Birthday Manish. Proud to call you bhai.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    const introScreen = document.getElementById("introScreen");
+    const cakeScreen = document.getElementById("cakeScreen");
+    const openCake = document.getElementById("openCake");
+    const cutCake = document.getElementById("cutCake");
+    const cakeArea = document.getElementById("cakeArea");
+    const cakeWrap = document.getElementById("cakeWrap");
+    const letter = document.getElementById("letter");
+    const closeLetter = document.getElementById("closeLetter");
+    const statusText = document.getElementById("statusText");
+
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let rockets = [];
+    let introBurstTimer = 0;
+    let celebrationMode = false;
+    let cutStarted = false;
+
+    const palette = ["#f7d77b", "#fff2b0", "#d26879", "#83d5ff", "#b9f6ca", "#ffffff"];
+
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function launchRocket(x = random(width * 0.16, width * 0.84), targetY = random(height * 0.12, height * 0.46)) {
+      rockets.push({
+        x,
+        y: height + 20,
+        targetY,
+        vx: random(-0.4, 0.4),
+        vy: random(-8.8, -11.5),
+        color: palette[Math.floor(Math.random() * palette.length)],
+        trail: []
+      });
+    }
+
+    function burst(x, y, power = 1, forcedColor) {
+      const count = Math.floor(random(46, 86) * power);
+      const color = forcedColor || palette[Math.floor(Math.random() * palette.length)];
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count + random(-0.05, 0.05);
+        const speed = random(1.4, 5.8) * power;
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: random(52, 96),
+          maxLife: 96,
+          size: random(1.2, 2.8),
+          color,
+          gravity: random(0.025, 0.065),
+          drag: random(0.972, 0.986)
+        });
+      }
+    }
+
+    function heartBurst() {
+      const x = width * 0.5;
+      const y = height * 0.34;
+      for (let i = 0; i < 130; i++) {
+        const t = (Math.PI * 2 * i) / 130;
+        const hx = 16 * Math.pow(Math.sin(t), 3);
+        const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        particles.push({
+          x,
+          y,
+          vx: hx * 0.24 + random(-0.4, 0.4),
+          vy: hy * 0.24 + random(-0.4, 0.4),
+          life: random(82, 130),
+          maxLife: 130,
+          size: random(1.5, 3),
+          color: i % 2 ? "#f7d77b" : "#d26879",
+          gravity: 0.018,
+          drag: 0.982
+        });
+      }
+    }
+
+    function draw() {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "rgba(5, 6, 12, 0.20)";
+      ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = "lighter";
+
+      introBurstTimer += 1;
+      if (introScreen.classList.contains("active") && introBurstTimer % 42 === 0) {
+        launchRocket();
+      }
+      if (celebrationMode && introBurstTimer % 16 === 0) {
+        launchRocket(random(width * 0.08, width * 0.92), random(height * 0.08, height * 0.42));
+      }
+
+      rockets = rockets.filter((rocket) => {
+        rocket.trail.push({ x: rocket.x, y: rocket.y });
+        if (rocket.trail.length > 8) rocket.trail.shift();
+
+        rocket.x += rocket.vx;
+        rocket.y += rocket.vy;
+        rocket.vy += 0.075;
+
+        rocket.trail.forEach((point, index) => {
+          const alpha = index / rocket.trail.length;
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(242, 196, 109, ${alpha * 0.45})`;
+          ctx.arc(point.x, point.y, 1.8 * alpha, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        ctx.beginPath();
+        ctx.fillStyle = rocket.color;
+        ctx.arc(rocket.x, rocket.y, 2.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (rocket.y <= rocket.targetY || rocket.vy >= -0.2) {
+          burst(rocket.x, rocket.y, random(0.8, 1.2), rocket.color);
+          return false;
+        }
+
+        return rocket.y > -40;
+      });
+
+      particles = particles.filter((particle) => {
+        particle.life -= 1;
+        particle.vx *= particle.drag;
+        particle.vy = particle.vy * particle.drag + particle.gravity;
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        const alpha = Math.max(particle.life / particle.maxLife, 0);
+        ctx.beginPath();
+        ctx.fillStyle = particle.color;
+        ctx.globalAlpha = alpha;
+        ctx.arc(particle.x, particle.y, particle.size * alpha, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        return particle.life > 0;
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    function startIntroShow() {
+      resizeCanvas();
+      ctx.fillStyle = "#05060c";
+      ctx.fillRect(0, 0, width, height);
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => launchRocket(random(width * 0.18, width * 0.82), random(height * 0.12, height * 0.42)), i * 240);
+      }
+      setTimeout(heartBurst, 950);
+      draw();
+    }
+
+    openCake.addEventListener("click", () => {
+      introScreen.classList.remove("active");
+      cakeScreen.classList.add("active");
+      celebrationMode = false;
+      statusText.textContent = "";
+      setTimeout(() => {
+        burst(width * 0.22, height * 0.28, 1.2, "#f7d77b");
+        burst(width * 0.78, height * 0.26, 1.2, "#d26879");
+      }, 620);
+    });
+
+    cutCake.addEventListener("click", () => {
+      if (cutStarted) return;
+      cutStarted = true;
+      cutCake.disabled = true;
+      cutCake.textContent = "cake cut ho raha hai...";
+      statusText.textContent = "Bhai ke naam pe perfect slice.";
+      cakeArea.classList.add("cake-cutting");
+
+      setTimeout(() => {
+        cakeWrap.classList.add("cake-cut");
+        cakeArea.classList.add("cake-cut");
+        celebrationMode = true;
+        burst(width * 0.28, height * 0.22, 1.45, "#f7d77b");
+        burst(width * 0.50, height * 0.18, 1.6, "#ffffff");
+        burst(width * 0.72, height * 0.24, 1.45, "#d26879");
+      }, 900);
+
+      setTimeout(() => heartBurst(), 1550);
+
+      setTimeout(() => {
+        letter.classList.add("open");
+        statusText.textContent = "";
+        cutCake.textContent = "cake cut ho gaya";
+      }, 2450);
+    });
+
+    closeLetter.addEventListener("click", () => {
+      letter.classList.remove("open");
+    });
+
+    window.addEventListener("resize", resizeCanvas);
+    startIntroShow();
+  </script>
+</body>
+</html>
